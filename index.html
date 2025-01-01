@@ -1,0 +1,388 @@
+<!DOCTYPE html> <!-- page web non officiel, version démo -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Jost:ital,wght@0,100..900;1,100..900&family=Permanent+Marker&family=Plaster&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.cdnfonts.com/css/prestige-elite-std" rel="stylesheet">
+                
+  <title>Acceuil</title>
+  
+  <style>
+    /* Variables de couleurs */
+    :root {
+      --background-color: #1a1a1a;
+      --content-bg-color: #0f0f0f;
+      --text-color: #ffffff;
+      --accent-color: #b71e1e;
+      --secondary-text-color: #cccccc;
+      --button-active-bg-color: #0f0f0f;
+      --button-active-text-color: #ffffff;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Global Styles */
+    body {
+      font-family: "Jost", serif;
+      margin: 0;
+      padding: 0;
+      background-color: #1a1a1a;
+      color: #ffffff;
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Container principal */
+    .container {
+      width: 100%;
+      max-width: 600px;
+    }
+
+    /* Header Title */
+    .header-title {
+      font-family: "Bungee Shade", serif;
+      font-size: 2.5rem;
+      text-align: center;
+      color: var(--accent-color);
+      margin-bottom: 20px;
+      font-weight: bold;
+      animation: blink 0.8s infinite alternate;
+    }
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+      50% { opacity: 0.5; }
+
+    }
+
+
+    .language-switch {
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+    .language-switch a {
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .language-switch a:hover {
+      text-decoration: underline;
+    }
+
+    /* Menu Container */
+    .menu {
+      max-width: 600px;
+      margin: 10px auto;
+      padding: 20px;
+      background-color: #0f0f0f;
+      border: 1px solid #b71e1e;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      display: none;
+    }
+
+    .menu h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #0f0f0f;
+      background-color: #ffffff;
+      margin: 20px 0;
+      border: 2px solid #b71e1e;
+      padding-bottom: 10px;
+    }
+
+    .button {
+      font-family: "Bungee Shade", serif;
+      font-weight: bold;
+      display: block;
+      width: 100%;
+      text-align: center;
+      font-size: 2.08rem;
+      color: #0f0f0f;
+      background-color: #ffffff;
+      margin: 2px 0;
+      padding: 20px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+      -webkit-tap-highlight-color: transparent; /* Supprime le surlignement bleu sur mobile */
+    }
+
+    .button:focus, .button:focus-visible {
+      outline: none; /* Supprime les bordures de focus */
+      box-shadow: none; /* Supprime les ombrages */
+    }
+
+    .button:hover {
+      background-color: #0f0f0f;
+      color: #ffffff;
+    }
+
+    .button.active {
+      background-color: var(--button-active-bg-color);
+      color: var(--button-active-text-color);
+    }
+
+    /* Section Header */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #b71e1e;
+      padding-bottom: 5px;
+    }
+
+    .section-header h2 {
+      font-family: "Bungee Shade", serif;
+      font-size: 1.8rem;
+      color: #b71e1e;
+      margin: 0;
+    }
+
+    .section-header .price {
+      font-family: "Bungee Shade", serif;
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #b71e1e;
+    }
+
+    /* List Items */
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      margin-bottom: 15px; /* Add spacing between items */
+    }
+
+    li .item-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    li .name {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    li .price {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #b71e1e;
+    }
+
+    li .description {
+      font-family: 'Playfair Display', serif;
+      margin-top: 5px; /* Space between the name and the description */
+      font-size: 1rem;
+      color: #cccccc;
+    }
+
+    footer {
+      font-family: 'Prestige Elite Std', sans-serif;
+      text-align: center;
+      color: #cccccc;
+      padding: 20px;
+      font-size: 1rem;
+      margin-top: 20px;
+    }
+
+    footer strong {
+      font-family: "Jost", serif;
+      font-weight: bold;
+      color: #E91E63;
+      font-size: 1.2rem;
+
+    }
+    a {
+      text-decoration: none;
+    }
+
+    footer p {
+      margin: 5px 0;
+    }
+
+    @media (max-width: 768px) {
+      .menu {
+        padding: 15px;
+      }
+
+      .button, a.button {
+        font-size: 2.08rem;
+      }
+      .section-header h2,
+      .section-header .price {
+        font-size: 1.7rem;
+      }
+
+      li .name, li .price {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header-title">BOWLING FOCH</div>
+    <div class="language-switch">
+      <a href="#" id="language-switch"></a>
+    </div>
+    <footer>
+      <p>L'accès à nos jeux nécessite une inscription préalable à l'accueil.</p>
+      <p>Les boissons et collations sont disponibles sur commande auprès du bar.</p>
+    </footer>
+     
+    <div>
+      <button class="button" data-url="index2.html">menu</button>
+    </div>
+
+    <div>
+      <button class="button" id="jeux-button">jeux</button>
+      <div class="menu" id="jeux-menu">
+      
+        <div class="section">
+            <div class="section-header">
+            </div>
+            <ul>
+              <li>
+                <div class="item-container">
+                  <span class="name">Billards Américains</span>
+                  <span class="price">15.</span>
+                </div>
+              </li>
+              <li>
+               <div class="item-container">
+                 <span class="name">Baby-Foot</span>
+                 <span class="price">12.</span>
+               </div>
+              </li>
+              <li>
+                <div class="item-container">
+                  <span class="name"></span>
+                  <span class="price"></span>
+                </div>
+                <span class="description">prix indiqué par Heure.<br>une Pièce d'identité obligatoire.</span>
+              </li>
+
+             <div class="section-header">
+          </div>
+           </ul>
+         </div>
+     
+         <!-- Section Jus -->
+         <div class="section">
+           <div class="section-header">
+             <h2>BOWLING</h2>
+           </div>
+           <p>Par personne et par partie. <br>sans réservation.</p>
+           
+           <ul>
+             <li>
+               <div class="item-container">
+                 <span class="name">Lundi au Jeudi</span>
+                 <span class="price">8.</span>
+               </div>
+             </li>
+             <li>
+               <div class="item-container">
+                 <span class="name">Vendredi au Dimanche</span>
+                 <span class="price">10.</span>
+               </div>
+             </li>
+             <li>
+              <div class="item-container">
+                <span class="name">Jours fériés et Veille de férié</span>
+                <span class="price">10.</span>
+              </div>
+             </li>
+             <li>
+              <div class="item-container">
+                <span class="name">Location de chaussures</span>
+                <span class="price">2.</span>
+              </div>
+             <span class="description">Inclut a la premiere partie uniquement.</span>
+            </li>
+           </ul>
+         </div>
+       </div>
+    </div>
+  
+    <!-- Bouton avec data-url -->
+    <div>
+      <button class="button" data-url="plansalle.png">plan de la salle</button>
+    </div>
+  </div>
+
+  <footer>
+      <p>Ouvert 7 jours/7</p>
+      <p>Prix nets, indiqué en euros - Service compris</p>
+      <p>plus d'information Rendez-vous sur notre site web officielle:</p>
+      <a href="https://www.bowling-foch.com/" target="_blank"><strong>Bowling Foch</strong></a>
+      <p>Face au 8 avenue Foch, 75116 Paris</p>
+      <p>Tél : 01 45 00 00 13</p>
+  </footer>
+
+  <script>
+    const buttons = document.querySelectorAll('.button');
+    const menus = document.querySelectorAll('.menu');
+    const languageSwitch = document.getElementById('language-switch');
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const url = button.getAttribute('data-url');
+        if (url) {
+          // Ouvrir la nouvelle page
+          window.open(url, '_blank');
+          return;
+        }
+
+        // Gérer les menus
+        const targetMenu = document.getElementById(button.id?.replace('-button', '-menu'));
+
+        menus.forEach(menu => {
+          if (menu !== targetMenu) {
+            menu.style.display = 'none';
+          }
+        });
+
+        buttons.forEach(btn => btn.classList.remove('active'));
+
+        if (targetMenu) {
+          if (targetMenu.style.display === 'block') {
+            targetMenu.style.display = 'none';
+          } else {
+            targetMenu.style.display = 'block';
+            button.classList.add('active');
+            window.scrollTo({
+              top: button.offsetTop,
+              behavior: 'smooth',
+            });
+          }
+        }
+      });
+    });
+
+    languageSwitch.addEventListener('click', (e) => {
+      e.preventDefault();
+      alert('Switch to English version');
+    });
+  </script>
+</body>
+</html>

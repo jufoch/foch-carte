@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Jost:ital,wght@0,100..900;1,100..900&family=Permanent+Marker&family=Plaster&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.cdnfonts.com/css/prestige-elite-std" rel="stylesheet">
+
+  <title>Carte de Bar</title>
+  <style>
+    /* Variables de couleurs */
+    :root {
+      --background-color: #1a1a1a;
+      --content-bg-color: #0f0f0f;
+      --text-color: #ffffff;
+      --accent-color: #b71e1e;
+      --secondary-text-color: #cccccc;
+      --button-active-bg-color: #0f0f0f;
+      --button-active-text-color: #ffffff;
+    }
+
+    html {
+      scroll-behavior: smooth; /* Active le scroll fluide */
+    }
+    
+    /* Global Styles */
+    body {
+      font-family: "Jost", serif;
+      margin: 0;
+      padding: 0;
+      background-color: #1a1a1a;
+      color: #ffffff;
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: 80vh;
+    }
+
+    /* Container principal */
+    .container {
+      width: 100%;
+      max-width: 600px;
+    }
+
+    /* Header Title */
+    .header-title {
+      font-family: "Bungee Shade", serif;
+      font-weight: bold;
+      font-size: 2.5rem;
+      text-align: center;
+      color: var(--accent-color);
+      margin-bottom: 20px;
+      font-weight: bold;
+      animation: blink 0.8s infinite alternate;
+    }
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+      40% { opacity: 0.4; }
+
+    }
+
+
+    .language-switch {
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+    .language-switch a {
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .language-switch a:hover {
+      text-decoration: underline;
+    }
+
+    /* Menu Container */
+    .menu {
+      max-width: 600px;
+      margin: 10px auto;
+      padding: 20px;
+      background-color: #0f0f0f;
+      border: 1px solid #b71e1e;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      display: none;
+    }
+
+    /* Main Title */
+    .menu h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #0f0f0f;
+      background-color: #ffffff;
+      margin: 20px 0;
+      border: 2px solid #b71e1e;
+      padding-bottom: 10px;
+    }
+
+    /* Style des boutons */
+    .button {
+      font-family: "Bungee Shade", serif;
+      font-weight: bold;
+      display: block;
+      width: 100%;
+      text-align: center;
+      font-size: 2.08rem;
+      color: #0f0f0f;
+      background-color: #ffffff;
+      margin: 2px 0;
+      padding: 20px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+      -webkit-tap-highlight-color: transparent; /* Supprime le surlignement bleu sur mobile */
+    }
+    .button:focus, .button:focus-visible {
+      outline: none; /* Supprime les bordures de focus */
+      box-shadow: none; /* Supprime les ombrages */
+    }
+
+    .button:hover {
+      background-color: #0f0f0f;
+      color: #ffffff;
+    }
+
+    .button.active {
+      background-color: var(--button-active-bg-color);
+      color: var(--button-active-text-color);
+    }
+
+
+    /* Section Header */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #b71e1e;
+      padding-bottom: 5px;
+    }
+
+    .section-header h2 {
+      font-size: 1.8rem;
+      color: #b71e1e;
+      margin: 0;
+    }
+
+    .section-header .price {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #b71e1e;
+    }
+
+    /* List Items */
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      margin-bottom: 15px; /* Add spacing between items */
+    }
+
+    li .item-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    li .name {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    li .price {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #b71e1e;
+    }
+
+    li .description {
+      font-family: 'Playfair Display', serif;
+      margin-top: 5px; /* Space between the name and the description */
+      font-size: 1rem;
+      color: #cccccc;
+    }
+
+    /* Grille bières */
+    .beer-section {
+      margin-top: 20px;
+    }
+
+    .beer-header {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr; /* Nom, 25cl, 50cl, 1L */
+      gap: 10px;
+      text-align: center;
+      font-weight: bold;
+      color: var(--secondary-text-color);
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 10px;
+    }
+
+    .beer-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 10px;
+      align-items: center;
+      border-bottom: 1px solid var(--secondary-text-color);
+      padding: 10px 0;
+    }
+
+    .beer-row:last-child {
+      border-bottom: none;
+    }
+
+    .beer-name {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .beer-detail {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--secondary-text-color);
+    }
+
+    .beer-price {
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--accent-color);
+    }
+
+
+    footer {
+      font-family: 'Prestige Elite Std', sans-serif;
+      text-align: center;
+      color: #cccccc;
+      padding: 20px;
+      font-size: 1rem;
+      margin-top: 20px;
+    }
+
+    footer strong {
+      font-family: "Jost", serif;
+      font-weight: bold;
+      color: #E91E63;
+      font-size: 1.2rem;
+    }
+    a {
+      text-decoration: none;
+    }
+
+
+    footer p {
+      margin: 5px 0;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .menu {
+        padding: 15px;
+      }
+
+      .button {
+        font-size: 2.08rem;
+      }
+      .section-header h2,
+      .section-header .price {
+        font-size: 1.7rem;
+      }
+
+      li .name, li .price {
+        font-size: 1.2rem;
+      }
+
+      .beer-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+      }
+
+      .beer-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+      }
+
+      .beer-name {
+        margin-bottom: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header-title">BOWLING FOCH</div>
+    <div class="language-switch">
+      <a href="#" id="language-switch"></a>
+    </div>
+
+    <!-- Boutons et leurs menus  -->
+
+
+    <div>
+      <button class="button" id="Cocktails-button">Cocktails</button>
+      <div class="menu" id="Cocktails-menu">
+        <div class="section">
+            <div class="section-header">
+              <h2>avec Alcools</h2>
+            </div>
+            <ul>
+              <li>
+                <div class="item-container">
+                  <span class="name">Sex on the Beach</span>
+                  <span class="price">10,80.</span>
+                </div>
+                <span class="description">Vodka, Crème Pêche, Jus d'Orange et Cranberry.</span>
+              </li>
+              <li>
+                <div class="item-container">
+                  <span class="name">Piña Colada</span>
+                  <span class="price">10,80.</span>
+                </div>
+                <span class="description">Rhum blanc, Crème de Coco, Jus d'Ananas.</span>
+              </li>
+              <li>
+                <div class="item-container">
+                  <span class="name">Gin Fizz</span>
+                  <span class="price">10,80.</span>
+                </div>
+                <span class="description">Gin, Jus de Citron, Soda.</span>
+              </li>
+              <li>
+                <div class="item-container">
+                  <span class="name">Tequila Sunrise</span>
+                  <span class="price">10,80€</span>
+                </div>
+                <span class="description">Tequila, Jus d'Orange, Grenadine.</span>
+              </li>
+              <li>
+                <div class="item-container">
+                  <span class="name">Punch Planteur</span>
+                  <span class="price">10,80€</span>
+                </div>
+                <span class="description">Rhum Brun et Blanc, Jus d'Orange, Jus d'Ananas.</span>
+              </li>
+              <li>
+                <div class="item-container">
+                  <span class="name">Mojito</span>
+                  <span class="price">10,80.</span>
+                </div>
+                <span class="description">Rhum havana, Citron Vert, Feuilles de Menthe, Sucre de Canne, Eau Gazeuse.</span>
+              </li>
+              <li>
+                <div class="item-container">
+                  <span class="name">Aperol Spritz</span>
+                  <span class="price">10,80.</span>
+                </div>
+                <span class="description">Aperol, Vin blanc pétillant, Eau Gazeuse.</span>
+              </li>
+              <li>
+                <div class="item-container">
+                  <span class="name">Moscow Mule</span>
+                  <span class="price">10,80.</span>
+                </div>
+                <span class="description">Vodka, Ginger Beer, Jus de Citron Vert.</span>
+              </li>
+              <li>
+                <div class="item-container">
+                  <span class="name">Caipiroska</span>
+                  <span class="price">10,80.</span>
+                </div>
+                <span class="description">Vodka, Citron Vert, Sucre de Canne.</span>
+              </li>
+              <li>
+                <div class="item-container">
+                  <span class="name">Paloma</span>
+                  <span class="price">10,80.</span>
+                </div>
+                <span class="description">Tequila, Jus de Citron Vert, Jus de Pamplemousse, Eau Gazeuse, Sucre de Canne.</span>
+              </li>              <li>
+                <div class="item-container">
+                  <span class="name">Blue Lagoon</span>
+                  <span class="price">10,80.</span>
+                </div>
+                <span class="description">Vodka, Curaçao Bleu, Jus de Citron.</span>
+              </li>
+              <li>
+                <div class="item-container">
+                  <span class="name">TiPunch</span>
+                  <span class="price">10,80.</span>
+                </div>
+                <span class="description">Rhum Brun, Citron Vert, Sucre de Canne.</span>
+              </li>
+            </ul>
+        </div>
+       <!-- Section sans alcools -->
+       <div class="section">
+        <div class="section-header">
+          <h2>sans Alcools</h2>
+          <span class="price"></span>
+        </div>
+        <ul>
+          <li>
+            <div class="item-container">
+              <span class="name">Paradise</span>
+              <span class="price">8,50.</span>
+            </div>
+            <span class="description">Ananas, Banane, Orange, Sirop de Fraise.</span>
+          </li>
+          <li>
+            <div class="item-container">
+              <span class="name">Hawaï</span>
+              <span class="price">8,50.</span>
+            </div>
+            <span class="description">Exotique, Mangue, Ananas, Sirop de Grenadine.</span>
+
+          </li>
+          <li>
+            <div class="item-container">
+              <span class="name">Virgin Mojito</span>
+              <span class="price">8,50.</span>
+            </div>
+            <span class="description">Citron Vert, Feuilles de Menthe, Sucre de Canne, Limonade.</span>
+          </li>
+          <li>
+            <div class="item-container">
+              <span class="name">Virgin Colada</span>
+              <span class="price">8,50.</span>
+            </div>
+            <span class="description">Crème de Coco, Jus d'Orange, Jus d'Ananas.</span>
+          </li>
+        </ul>
+      </div>        
+      </div>
+    </div>
+
+    <div>
+      <button class="button" id="Bieres-button">Bières</button>
+      <div class="menu" id="Bieres-menu">
+        <div class="beer-section">
+            <div class="section-header">
+                <h2>Pression</h2>
+              </div>
+            <div class="beer-header">
+              <div></div> <!-- Empty space for alignment -->
+              <div>25cl</div>
+              <div>50cl</div>
+              <div>1L</div>
+            </div>
+      
+            <div class="beer-row">
+              <div>
+                <div class="beer-name">La Classique</div>
+                <div class="beer-detail">Heineken</div>
+              </div>
+              <div class="beer-price">5,50.</div>
+              <div class="beer-price">9,50.</div>
+              <div class="beer-price">17,50.</div>
+            </div>
+      
+            <div class="beer-row">
+              <div>
+                <div class="beer-name">La Premium</div>
+                <div class="beer-detail">Affligem</div>
+              </div>
+              <div class="beer-price">6,50.</div>
+              <div class="beer-price">10,50.</div>
+              <div class="beer-price">19,50.</div>
+            </div>
+      
+            <div class="beer-row">
+              <div>
+                <div class="beer-name">Monaco</div>
+              </div>
+              <div class="beer-price">5,50.</div>
+              <div class="beer-price">9,50.</div>
+              <div class="beer-price">17,50.</div>
+            </div>
+
+            <div class="beer-row">
+                <div>
+                  <div class="beer-name">Panache</div>
+                </div>
+                <div class="beer-price">5,50.</div>
+                <div class="beer-price">9,50.</div>
+                <div class="beer-price">17,50.</div>
+            </div>
+
+            <p></p>
+
+            <div class="section-header">
+                <h2>Bouteilles </h2>
+                <span class="price">33cl</span>
+              </div>
+              <ul>
+                <li>
+                  <div class="item-container">
+                    <span class="name">Heineken <br>Desperados - Corona</span>
+                    <span class="price">7.</span>
+                  </div>
+                  <span class="description"></span>
+                </li>            
+        </div>      
+  </div>
+
+  <div>
+    <button class="button" id="BoissonSoft-button">Boissons Soft</button>
+    <div class="menu" id="BoissonSoft-menu">
+    
+      <div class="section">
+          <div class="section-header">
+            <h2>Sodas </h2>
+            <span class="price">25cl.</span>
+          </div>
+          <ul>
+            <li>
+              <div class="item-container">
+                <span class="name">Pepsi <br>Pepsi Max (Zero)</span>
+                <span class="price">4,80.</span>
+              </div>
+            </li>
+            <li>
+             <div class="item-container">
+               <span class="name">Seven Up  <br>Schweppes (Tonic)</span>
+               <span class="price">4,80.</span>
+             </div>
+           </li>
+           <li>
+             <div class="item-container">
+               <span class="name">Orangina <br>Ice Tea</span>
+               <span class="price">4,80.</span>
+             </div>
+           </li>
+           <li>
+            <div class="item-container">
+              <span class="name">Diabolo</span>
+              <span class="price">4,80.</span>
+            </div>
+            <span class="description">Grenadine - Fraise - Menthe - Pêche - Citron</span>
+          </li>
+         </ul>
+       </div>
+   
+       <!-- Section Jus -->
+       <div class="section">
+         <div class="section-header">
+           <h2>Jus</h2>
+           <span class="price">25cl.</span>
+         </div>
+         <ul>
+           <li>
+             <div class="item-container">
+               <span class="name">Orange - Ananas - Abricot <br>Citron - Banane - Pomme <br>Mangue - Exotique<br>Pamplemousse</span>
+               <span class="price">4,80.</span>
+             </div>
+           </li>
+           
+         </ul>
+       </div>
+
+       <div class="section">
+        <div class="section-header">
+          <h2>Eaux</h2>
+          <span class="price">50cl.</span>
+        </div>
+        <ul>
+          <li>
+            <div class="item-container">
+              <span class="name">Nestlé <br>Perrier</span>
+              <span class="price">4.</span>
+            </div>
+            <span class="description">Avec ou sans sirop</span>
+          </li>  
+
+        <div class="section">
+            <div class="section-header">
+              <h2>Redbull</h2>
+              <span class="price">25cL.</span>
+            </div>
+            <ul>
+              <li>
+                <div class="item-container">
+                  <span class="name">Redbull original <br>Redbull Pastèque</span>
+                  <span class="price">5,50.</span>
+                </div>
+              </li>                
+           </ul>
+        </div>
+        <div class="section">
+            <div class="section-header">
+              <h2>Organics Bio</h2>
+              <span class="price">25cL.</span>
+            </div>
+            <ul>
+              <li>
+                <div class="item-container">
+                  <span class="name">Ginger Beer <br>Tonic Water - Viva Mate</span>
+                  <span class="price">5,50.</span>
+                </div>
+              </li>                
+           </ul>
+        </div>
+     </div>
+     
+    </div>
+    <div>
+        <button class="button" id="hot-button">coffee shop</button>
+        <div class="menu" id="hot-menu">
+          <div class="section">
+              
+              <ul>
+                <li>
+                  <div class="item-container">
+                    <span class="name">Expresso - Décaféiné <br>Noisette</span>
+                    <span class="price">2,90.</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-container">
+                    <span class="name">Double Expresso <br>Crème - Cappuccino</span>
+                    <span class="price">4,40.</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-container">
+                    <span class="name">Chocolat chaud <br>Thé - Infusion</span>
+                    <span class="price">4.</span>
+                  </div>
+                </li>
+            </div>        
+        </div>
+    </div>
+    <div>
+        <button class="button" id="snack-button">snack food</button>
+        <div class="menu" id="snack-menu">
+          <div class="section">
+              
+              <ul>
+                <li>
+                  <div class="item-container">
+                    <span class="name">Pizza Margarita</span>
+                    <span class="price">12.</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-container">
+                    <span class="name">Tacos, Olives, Mélange salé</span>
+                    <span class="price">5,90.</span>
+                  </div>
+                  <span class="description">Assiette composé de Nachos, Olives vertes, Mélange salé, sauce salsa.</span>
+                </li>
+                <li>
+                  <div class="item-container">
+                    <span class="name">Pop Corn</span>
+                    <span class="price">4,90.</span>
+                  </div>
+                  <span class="description">Salé ou Sucré.</span>
+                </li>
+                <li>
+                    <div class="item-container">
+                      <span class="name">Brownie au Chocolat</span>
+                      <span class="price">4,90.</span>
+                    </div>
+                </li>
+            </div>        
+        </div>
+    </div>
+    <div>
+        <button class="button" id="champ-button">Champagne</button>
+        <div class="menu" id="champ-menu">
+          <div class="section">
+              
+              <ul>
+                <li>
+                  <div class="item-container">
+                    <span class="name">La Bouteille 75cl</span>
+                    <span class="price">90.</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-container">
+                    <span class="name">La Coupe de Champagne</span>
+                    <span class="price">12.</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-container">
+                    <span class="name">Kir Royal</span>
+                    <span class="price">12.</span>
+                  </div>
+                </li>
+              </ul> 
+            </div>        
+        </div>
+    </div>
+    <div>
+        <button class="button" id="Apéritifs-button">Apéritifs</button>
+        <div class="menu" id="Apéritifs-menu">
+            <div class="section">
+              
+              <ul>
+                <li>
+                  <div class="item-container">
+                    <span class="name">Ricard - Pastis 3cl</span>
+                    <span class="price">5.</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-container">
+                    <span class="name">Martini 5cl</span>
+                    <span class="price">5.</span>
+                  </div>
+                  <span class="description">Blanc ou Rouge.</span>
+                </li>
+                <li>
+                  <div class="item-container">
+                    <span class="name">Verre de Vin</span>
+                    <span class="price">5.</span>
+                  </div>
+                </li>
+                <li>
+                    <div class="item-container">
+                      <span class="name">Kir</span>
+                      <span class="price">5.</span>
+                    </div>
+                    <span class="description">Cassis ou Pêche.</span>
+                </li>
+              </ul>
+            </div>        
+        </div>
+    </div>
+
+    <div>
+        <button class="button" id="alc-button">Alcools</button>
+        <div class="menu" id="alc-menu">       
+            
+         <div class="beer-section">
+            <div class="section-header">
+                <h2>Bouteilles</h2>
+                <span class="price">70cl.</span>
+              </div>
+              <div class="section-header">
+                <h2>Verre</h2>
+                <span class="price">4cl.</span>
+              </div>
+        
+            <div class="beer-header">
+              <div></div> <!-- Empty space for alignment -->
+              <div></div>
+              <div>4cl</div>
+              <div>70cl</div>
+            </div>
+      
+            <div class="beer-row">
+              <div>
+                <div class="beer-name">Chivas</div>
+              </div>
+              <div class="beer-price"></div>
+              <div class="beer-price">9,80.</div>
+              <div class="beer-price">115.</div>
+            </div>
+      
+            <div class="beer-row">
+              <div>
+                <div class="beer-name">Jack Daniel's</div>
+              </div>
+              <div class="beer-price"></div>
+              <div class="beer-price">9,80.</div>
+              <div class="beer-price">115.</div>
+            </div>
+      
+            <div class="beer-row">
+              <div>
+                <div class="beer-name">Absolut Vodka</div>
+              </div>
+              <div class="beer-price"></div>
+              <div class="beer-price">9,80.</div>
+              <div class="beer-price">115.</div>
+            </div>
+
+            <div class="beer-row">
+                <div>
+                  <div class="beer-name">Whisky</div>
+                  <div class="beer-detail">Ballantines</div>
+                </div>
+                <div class="beer-price"></div>
+                <div class="beer-price">7,80.</div>
+                <div class="beer-price">105.</div>
+              </div>
+
+            <div class="beer-row">
+                <div>
+                  <div class="beer-name">Vodka</div>
+                  <div class="beer-detail">Poliakov</div>
+                </div>
+                <div class="beer-price"></div>
+                <div class="beer-price">7,80.</div>
+                <div class="beer-price">105.</div>
+            </div>
+
+            <div class="beer-row">
+                <div>
+                  <div class="beer-name">havana Club</div>
+                  <div class="beer-detail">Blanc ou Anejo especial</div>
+                </div>
+                <div class="beer-price"></div>
+                <div class="beer-price"></div>
+                <div class="beer-price">115.</div>
+            </div>
+
+            <div class="beer-row">
+                <div>
+                  <div class="beer-name">Rhum</div>
+                  <div class="beer-detail">Saint James Blanc ou Ambré</div>
+                </div>
+                <div class="beer-price"></div>
+                <div class="beer-price">7,80.</div>
+                <div class="beer-price">105.</div>
+            </div>
+
+            <div class="beer-row">
+                <div>
+                  <div class="beer-name">Gin</div>
+                  <div class="beer-detail">Beefeater</div>
+                </div>
+                <div class="beer-price"></div>
+                <div class="beer-price">7,80.</div>
+                <div class="beer-price">105.</div>
+            </div>
+
+            <div class="beer-row">
+                <div>
+                  <div class="beer-name">Téquila</div>
+                  <div class="beer-detail">Jose Cuervo Reposado</div>
+                </div>
+                <div class="beer-price"></div>
+                <div class="beer-price">7,80.</div>
+                <div class="beer-price">105.</div>
+            </div>
+
+            <div class="beer-row">
+                <div>
+                  <div class="beer-name">Get 27 <br>Get 31</div>
+                </div>
+                <div class="beer-price"></div>
+                <div class="beer-price">7,80.</div>
+                <div class="beer-price"></div>
+            </div>
+
+            <div class="beer-row">
+                <div>
+                  <div class="beer-name">Baileys</div>
+                </div>
+                <div class="beer-price"></div>
+                <div class="beer-price">7,80.</div>
+                <div class="beer-price"></div>
+            </div>
+
+            <div class="beer-row">
+                <div>
+                  <div class="beer-name">Malibu</div>
+                </div>
+                <div class="beer-price"></div>
+                <div class="beer-price">7,80.</div>
+                <div class="beer-price"></div>
+            </div>
+
+            <div class="beer-row">
+                <div>
+                  <div class="beer-name">Jägermeister</div>
+                </div>
+                <div class="beer-price"></div>
+                <div class="beer-price">7,80.</div>
+                <div class="beer-price"></div>
+            </div>
+            <li>
+             <span class="description">Accompagnement offert hors Redbull (supplément 2 €).</span>
+            </li>
+
+            <p></p>
+
+        </div>
+        <div class="section">
+            <div class="section-header">
+              <h2>Shot</h2>
+              <span class="price">2cl.</span>
+            </div>
+            <ul>
+              <li>
+                <div class="item-container">
+                  <span class="name">Téquila - Vodka - Gin - Get</span>
+                  <span class="price">3,50.</span>
+                </div>
+              </li>
+            </ul>  
+        </div>
+         
+    </div>
+
+    <footer>
+      <p>Ouvert 7 jours/7</p>
+      <p>Prix nets, indiqué en euros - Service compris</p>
+      <p>plus d'information Rendez-vous sur notre site web officielle:</p>
+      <a href="https://www.bowling-foch.com/" target="_blank"><strong>Bowling Foch</strong></a>
+      <p>Face au 8 avenue Foch, 75116 Paris</p>
+      <p>Tél : 01 45 00 00 13</p>
+    </footer>
+
+  
+    <script>
+      const buttons = document.querySelectorAll('.button');
+      const menus = document.querySelectorAll('.menu');
+      const languageSwitch = document.getElementById('language-switch');
+  
+      buttons.forEach(button => {
+        button.addEventListener('click', () => {
+          const url = button.getAttribute('data-url');
+          if (url) {
+            // Ouvrir la nouvelle page
+            window.open(url, '_blank');
+            return;
+          }
+  
+          // Gérer les menus
+          const targetMenu = document.getElementById(button.id?.replace('-button', '-menu'));
+  
+          menus.forEach(menu => {
+            if (menu !== targetMenu) {
+              menu.style.display = 'none';
+            }
+          });
+  
+          buttons.forEach(btn => btn.classList.remove('active'));
+  
+          if (targetMenu) {
+            if (targetMenu.style.display === 'block') {
+              targetMenu.style.display = 'none';
+            } else {
+              targetMenu.style.display = 'block';
+              button.classList.add('active');
+              window.scrollTo({
+                top: button.offsetTop,
+                behavior: 'smooth',
+              });
+            }
+          }
+        });
+      });
+  
+      languageSwitch.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert('Switch to English version');
+      });
+  </script>
+  
+</body>
+</html>
